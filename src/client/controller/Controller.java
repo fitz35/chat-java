@@ -7,7 +7,7 @@ import client.connexion.ManageConnection;
  */
 public class Controller {
     private StateController state;
-    private ManageConnection connection;
+    private final ManageConnection connection;
 
     public Controller(){
         this.setState(new NotConnectedState());
