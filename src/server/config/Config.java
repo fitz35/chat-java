@@ -1,7 +1,7 @@
-package config;
+package server.config;
 
 /**
- * manage config
+ * manage client.config
  */
 public class Config {
     /**
