@@ -20,7 +20,7 @@ public class NotConnectedState extends StateController {
                     ", to the room : " + room + " with the name : " + name + "!");
             ReceiverThread ct = new ReceiverThread(con, controller);
             ct.start();
-            controller.setState(new ConnectedState());
+            controller.setState(new ConnectedState(name, room));
         }
     }
 }

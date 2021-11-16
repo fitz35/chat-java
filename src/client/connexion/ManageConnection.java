@@ -89,7 +89,7 @@ public class ManageConnection {
     }
 
     /**
-     * if a connection is alive, disconnect the connection
+     * if a connection is alive, disconnect the connection,
      */
     public void disconnection(){
         if(this.isConnected()){
@@ -101,8 +101,15 @@ public class ManageConnection {
                 this.socOut = null;
                 this.echoSocket = null;
             } catch (IOException e) {
+                this.socIn = null;
+                this.socOut = null;
+                this.echoSocket = null;
                 e.printStackTrace();
             }
+        }else{
+            this.socIn = null;
+            this.socOut = null;
+            this.echoSocket = null;
         }
     }
 }

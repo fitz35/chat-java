@@ -1,6 +1,7 @@
 package client.controller;
 
 import client.connexion.ManageConnection;
+import client.view.connectionWindow.ConnectionWindow;
 
 /**
  * the controller of the application
@@ -8,10 +9,15 @@ import client.connexion.ManageConnection;
 public class Controller {
     private StateController state;
     private final ManageConnection connection;
+    private final ConnectionWindow connectionWindow;
 
     public Controller(){
-        this.setState(new NotConnectedState());
+
         this.connection = new ManageConnection();
+        this.connectionWindow = new ConnectionWindow(this);
+
+
+        this.setState(new NotConnectedState());
     }
 
     /**
@@ -46,6 +52,9 @@ public class Controller {
      */
     public void setState(StateController state) {
         this.state = state;
+        if(this.state instanceof NotConnectedState){
+            this.connectionWindow.setVisible(true);
+        }
     }
 
     /**
