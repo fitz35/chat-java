@@ -16,5 +16,6 @@ public class Frame extends JFrame {
         this.controller = controller;
         this.setPreferredSize(Config.preferredSize);
         this.setMinimumSize(Config.minimumSize);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

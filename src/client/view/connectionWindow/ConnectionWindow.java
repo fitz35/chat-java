@@ -1,6 +1,6 @@
 package client.view.connectionWindow;
 
-import client.config.Color;
+import client.config.ColorPalette;
 import client.config.Config;
 import client.controller.Controller;
 import client.view.Frame;
@@ -41,7 +41,7 @@ public class ConnectionWindow extends Frame {
         this.nameLabel = new JLabel("Enter your name :");
 
         this.errorLabel = new JLabel();
-        this.errorLabel.setForeground(Color.errorMessage);
+        this.errorLabel.setForeground(ColorPalette.errorMessage);
         this.errorLabel.setVisible(false);
 
         this.validate = new JButton("Connection");

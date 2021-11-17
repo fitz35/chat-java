@@ -29,7 +29,7 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
         scrollMessages.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollMessages.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        this.titleLabel = new JLabel("Connection to the server !", SwingConstants.CENTER);
+        this.titleLabel = new JLabel("", SwingConstants.CENTER);
         this.titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
         this.sendForm = new SendFormPanel(controller);
@@ -37,6 +37,14 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
         this.add(this.titleLabel, BorderLayout.NORTH);
         this.add(scrollMessages, BorderLayout.CENTER);
         this.add(this.sendForm, BorderLayout.SOUTH);
+    }
+
+    /**
+     * update the title
+     */
+    public void updateTitle(){
+        this.titleLabel.setText("Welcome to the room \"" + controller.getState().getRoom() +  "\", " +
+                controller.getState().getName() + "!");
     }
 
     @Override

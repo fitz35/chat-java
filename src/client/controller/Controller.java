@@ -63,6 +63,7 @@ public class Controller {
         }else if(this.state instanceof ConnectedState){
             this.connectionWindow.setVisible(false);
             this.connectedWindow.setVisible(true);
+            this.connectedWindow.updateTitle();
         }
     }
 

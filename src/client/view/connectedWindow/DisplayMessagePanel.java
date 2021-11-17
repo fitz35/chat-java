@@ -31,6 +31,8 @@ public class DisplayMessagePanel extends JPanel {
             this.listMessagesDisplay.add(messageDisplay);
             this.add(messageDisplay);
         }
+        this.validate();
+        this.repaint();
     }
 
     /**
@@ -42,5 +44,7 @@ public class DisplayMessagePanel extends JPanel {
         DisplayOneMessage messageDisplay = new DisplayOneMessage(message, this.controller);
         this.listMessagesDisplay.add(messageDisplay);
         this.add(messageDisplay);
+        this.validate();
+        this.repaint();
     }
 }

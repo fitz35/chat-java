@@ -36,7 +36,7 @@ public class SendFormPanel extends JPanel {
         });
 
         this.sendField = new JTextField();
-        Dimension jtextFieldDimension = new Dimension(Config.minimumSize.width - this.sendButton.getPreferredSize().width - 10,
+        Dimension jtextFieldDimension = new Dimension(Config.minimumSize.width - this.sendButton.getPreferredSize().width - 30,
                 20);
         this.sendField.setPreferredSize(jtextFieldDimension);
 
