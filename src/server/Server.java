@@ -38,7 +38,9 @@ public class Server {
                 while (true) {
 
                     Socket clientSocket = listenSocket.accept();
+                    System.out.println("before Server Thread");
                     ServerThread serverThread= new ServerThread(clientSocket);
+                    System.out.println("before Server Thread start");
                     serverThread.start();
 
                 }

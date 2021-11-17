@@ -50,7 +50,7 @@ public class ServerThread extends Thread
 
             while(line!= "exit")
             {
-                room.sendMessageToRoom(line);
+                room.sendMessageToRoom(line, client);
                 line=socIn.readLine();
             }
             stdIn.close();

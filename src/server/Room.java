@@ -1,7 +1,9 @@
 package server;
 
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Room
 {
@@ -16,14 +18,18 @@ public class Room
         this.name=name;
     }
 
-    public void sendMessageToRoom(String message)
+    public void sendMessageToRoom(String messageNotFormatted, ClientBack client)
     {
         try
         {
             for(ClientBack c: listeClients)
             {
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                Message message= new Message(messageNotFormatted, client,date);
+                String formattedMessage= message.getFormattedMessage();
                 PrintStream socOut = new PrintStream(c.getClientSocket().getOutputStream());
-                socOut.println(message);
+                socOut.println(formattedMessage);
             }
         }
         catch(Exception e)
