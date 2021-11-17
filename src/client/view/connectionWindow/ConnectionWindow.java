@@ -111,7 +111,7 @@ public class ConnectionWindow extends Frame {
      * manage the error from the user
      */
     public void connectionError(){
-        this.errorLabel.setText("An error occur with the connection, please check your credentials");
+        this.errorLabel.setText("An error occur with the connection !");
         this.errorLabel.setVisible(true);
     }
 

@@ -13,12 +13,13 @@ import java.util.ArrayList;
  * thread handle the receive message
  */
 public class ReceiverThread extends Thread {
-    public static final String MESSAGES = "messages";
+    public static final String LAST_MESSAGE = "lastMessages";
 
     private final ManageConnection con;
     private final Controller controller;
 
     private final ArrayList<String> messages;
+    private String lastMessage;
 
     /**
      *
@@ -56,13 +57,12 @@ public class ReceiverThread extends Thread {
      * @param message the message
      */
     private void addMessage(String message) {
-        ArrayList<String> old = new ArrayList<>(this.messages);
-        this.messages.add(message);
         notifyListeners(
-                MESSAGES,
-                old,
-                this.messages);
-
+                LAST_MESSAGE,
+                this.lastMessage,
+                message);
+        this.lastMessage = message;
+        this.messages.add(message);
     }
 
     /**
@@ -71,7 +71,7 @@ public class ReceiverThread extends Thread {
      * @param oldValue the old value
      * @param newValue the new value
      */
-    private void notifyListeners(String property, ArrayList<String> oldValue, ArrayList<String> newValue) {
+    private void notifyListeners(String property, String oldValue, String newValue) {
         for (PropertyChangeListener name : this.listener) {
             name.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
         }
