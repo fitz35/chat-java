@@ -19,6 +19,7 @@ public class NotConnectedState extends StateController {
             System.out.println("connected to " + Config.host + ":" + Config.port +
                     ", to the room : " + room + " with the name : " + name + "!");
             ReceiverThread ct = new ReceiverThread(con, controller);
+            ct.addChangeListener(controller.getConnectedWindow());
             ct.start();
             controller.setState(new ConnectedState(name, room));
         }

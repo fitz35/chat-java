@@ -1,6 +1,8 @@
 package client.controller;
 
 import client.connexion.ManageConnection;
+import client.connexion.ReceiverThread;
+import client.view.connectedWindow.ConnectedWindow;
 import client.view.connectionWindow.ConnectionWindow;
 
 /**
@@ -9,13 +11,16 @@ import client.view.connectionWindow.ConnectionWindow;
 public class Controller {
     private StateController state;
     private final ManageConnection connection;
+
     private final ConnectionWindow connectionWindow;
+    private final ConnectedWindow connectedWindow;
 
     public Controller(){
 
         this.connection = new ManageConnection();
-        this.connectionWindow = new ConnectionWindow(this);
 
+        this.connectionWindow = new ConnectionWindow(this);
+        this.connectedWindow = new ConnectedWindow(this);
 
         this.setState(new NotConnectedState());
     }
@@ -54,6 +59,10 @@ public class Controller {
         this.state = state;
         if(this.state instanceof NotConnectedState){
             this.connectionWindow.setVisible(true);
+            this.connectedWindow.setVisible(false);
+        }else if(this.state instanceof ConnectedState){
+            this.connectionWindow.setVisible(false);
+            this.connectedWindow.setVisible(true);
         }
     }
 
@@ -63,5 +72,13 @@ public class Controller {
      */
     public ManageConnection getConnection() {
         return connection;
+    }
+
+    /**
+     * get the connected window
+     * @return the connected window
+     */
+    public ConnectedWindow getConnectedWindow(){
+        return this.connectedWindow;
     }
 }
