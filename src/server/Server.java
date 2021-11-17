@@ -17,12 +17,13 @@ public class Server {
     {
         for (Room r: listRooms)
         {
-            if(r.getName()==roomName)
+            if(r.getName().compareTo(roomName)==0)
             {
                 return r;
             }
         }
         Room r= new Room(roomName);
+        listRooms.add(r);
         return r;
 
     }
