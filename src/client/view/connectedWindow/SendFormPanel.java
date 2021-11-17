@@ -1,5 +1,6 @@
 package client.view.connectedWindow;
 
+import client.config.Config;
 import client.controller.Controller;
 
 import javax.swing.*;
@@ -23,7 +24,6 @@ public class SendFormPanel extends JPanel {
         this.setLayout(new FlowLayout());
         this.controller = controller;
 
-        this.sendField = new JTextField();
         this.sendButton = new JButton("send");
         this.sendButton.addActionListener(new ActionListener() {
             @Override
@@ -33,6 +33,12 @@ public class SendFormPanel extends JPanel {
                 }
             }
         });
+
+        this.sendField = new JTextField();
+        Dimension jtextFieldDimension = new Dimension(Config.minimumSize.width - this.sendButton.getPreferredSize().width - 10,
+                20);
+        this.sendField.setPreferredSize(jtextFieldDimension);
+
 
 
         this.add(this.sendField);

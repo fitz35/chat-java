@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ConnectedWindow extends Frame implements PropertyChangeListener {
     // component
     private final DisplayMessagePanel listMessagesPanel;
+    private final SendFormPanel sendForm;
 
     private final JLabel titleLabel;
 
@@ -31,9 +32,11 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
         this.titleLabel = new JLabel("Connection to the server !", SwingConstants.CENTER);
         this.titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
+        this.sendForm = new SendFormPanel(controller);
 
         this.add(this.titleLabel, BorderLayout.NORTH);
         this.add(scrollMessages, BorderLayout.CENTER);
+        this.add(this.sendForm, BorderLayout.SOUTH);
     }
 
     @Override
