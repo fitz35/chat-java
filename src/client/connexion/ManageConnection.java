@@ -70,8 +70,7 @@ public class ManageConnection {
             this.socOut= new PrintStream(this.echoSocket.getOutputStream());
 
             // test the credentials :TODO : test this method
-            socOut.println(room);
-            socOut.println(name);
+            socOut.println(name + "/" + room);
             if(this.echoSocket.isConnected()){
                 return true;
             }else{

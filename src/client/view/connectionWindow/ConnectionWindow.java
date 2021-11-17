@@ -40,7 +40,7 @@ public class ConnectionWindow extends Frame {
         this.roomNameLabel = new JLabel("Enter the room name :");
         this.nameLabel = new JLabel("Enter your name :");
 
-        this.errorLabel = new JLabel("Please fill all the form !");
+        this.errorLabel = new JLabel();
         this.errorLabel.setForeground(Color.errorMessage);
         this.errorLabel.setVisible(false);
 
@@ -55,7 +55,7 @@ public class ConnectionWindow extends Frame {
                     controller.connection(name, roomName);
                 }else{
                     System.out.println("form empty");
-                    errorLabel.setVisible(true);
+                    formError();
                 }
             }
         });
@@ -87,4 +87,33 @@ public class ConnectionWindow extends Frame {
         this.add(this.askPanel, BorderLayout.CENTER);
         this.pack();
     }
+
+    ////////////////////////////////////////
+    // manage error
+    ////////////////////////////////////////
+
+    /**
+     * clear the error
+     */
+    private void clearError(){
+        this.errorLabel.setVisible(false);
+    }
+
+    /**
+     * manage the error from the user
+     */
+    private void formError(){
+        this.errorLabel.setText("Please fill all the form !");
+        this.errorLabel.setVisible(true);
+    }
+
+    /**
+     * manage the error from the user
+     */
+    public void connectionError(){
+        this.errorLabel.setText("An error occur with the connection !");
+        this.errorLabel.setVisible(true);
+    }
+
+
 }
