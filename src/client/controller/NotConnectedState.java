@@ -8,6 +8,7 @@ import client.connexion.ReceiverThread;
  * state when we aren't connected
  */
 public class NotConnectedState extends StateController {
+
     public NotConnectedState(){
 
     }
@@ -22,6 +23,8 @@ public class NotConnectedState extends StateController {
             ct.addChangeListener(controller.getConnectedWindow());
             ct.start();
             controller.setState(new ConnectedState(name, room));
+        }else{
+            controller.getConnectionWindow().connectionError();
         }
     }
 }

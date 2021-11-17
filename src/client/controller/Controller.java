@@ -81,4 +81,12 @@ public class Controller {
     public ConnectedWindow getConnectedWindow(){
         return this.connectedWindow;
     }
+
+    /**
+     * get the connection window
+     * @return the connection window
+     */
+    public ConnectionWindow getConnectionWindow(){
+        return this.connectionWindow;
+    }
 }
