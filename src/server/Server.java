@@ -35,6 +35,8 @@ public class Server {
             try {
                 listenSocket = new ServerSocket(Config.port); //port
                 System.out.println("Server ready...");
+                Server.listRooms=new ArrayList<>();
+
                 while (true) {
 
                     Socket clientSocket = listenSocket.accept();
