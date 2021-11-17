@@ -38,6 +38,7 @@ public class ManageConnection {
     public void sendMessage(String message){
         if(this.isConnected()){
             socOut.println(message);
+            System.out.println("\"" + message + "\" sent !");
         }
     }
 

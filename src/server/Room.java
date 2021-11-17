@@ -48,7 +48,7 @@ public class Room
 
         for(ClientBack c: listeClients)
         {
-            if(c.getName()==inputDetails)
+            if(c.getName().compareTo(inputDetails) == 0)
             {
                 return false;
             }

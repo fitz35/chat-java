@@ -29,6 +29,7 @@ public class SendFormPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(sendField.getText().compareTo("") != 0){
+                    System.out.println("send (ihm) : " + sendField.getText());
                     controller.getConnection().sendMessage(sendField.getText());
                 }
             }
