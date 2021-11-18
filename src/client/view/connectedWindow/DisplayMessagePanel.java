@@ -1,8 +1,10 @@
 package client.view.connectedWindow;
 
+import client.config.Config;
 import client.controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ public class DisplayMessagePanel extends JPanel {
     private final Controller controller;
 
     // component
-    private ArrayList<DisplayOneMessage> listMessagesDisplay;
+    private final ArrayList<DisplayOneMessage> listMessagesDisplay;
 
 
     public DisplayMessagePanel(ArrayList<String> listMessages, Controller controller){
@@ -44,6 +46,7 @@ public class DisplayMessagePanel extends JPanel {
         DisplayOneMessage messageDisplay = new DisplayOneMessage(message, this.controller);
         this.listMessagesDisplay.add(messageDisplay);
         this.add(messageDisplay);
+
         this.validate();
         this.repaint();
     }

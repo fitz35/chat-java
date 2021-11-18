@@ -1,5 +1,7 @@
 package client.config;
 
+import java.awt.*;
+
 /**
  * define the used color
  */
@@ -14,4 +16,13 @@ public class ColorPalette {
      */
     public static final java.awt.Color nameColor = new java.awt.Color(255, 0, 0);
 
+    /**
+     * color of the border of the messages of others
+     */
+    public static final Color oneMessageOthersColor = new java.awt.Color(255, 0, 0);
+
+    /**
+     * color of the border of the messages of self
+     */
+    public static final Color oneMessageSelfColor = new java.awt.Color(0, 125, 0);
 }

@@ -1,9 +1,11 @@
 package client.view.connectedWindow;
 
 import client.config.ColorPalette;
+import client.config.Config;
 import client.controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.text.*;
 import java.awt.*;
 
@@ -19,7 +21,17 @@ public class DisplayOneMessage extends JTextPane {
         super();
         this.message = message;
         this.controller = controller;
-        this.formatMessage();
+        // name/content/date
+        String[] split = this.message.split("/");
+
+        String name = split[0];
+        this.formatMessage(name, split[1]);
+        if(name.compareTo(this.controller.getState().getName()) == 0){
+            this.setBorder(BorderFactory.createLineBorder(ColorPalette.oneMessageSelfColor));
+        }else{
+            this.setBorder(BorderFactory.createLineBorder(ColorPalette.oneMessageOthersColor));
+        }
+
         this.validate();
         this.repaint();
     }
@@ -27,11 +39,13 @@ public class DisplayOneMessage extends JTextPane {
     /**
      * format a message to display it
      */
-    private void formatMessage(){
-        // name/content/date
-        String[] split = this.message.split("/");
+    private void formatMessage(String name, String message){
+        StringBuilder sb = new StringBuilder(message);
+        for(int i = 1 ; i * Config.nbCharactersMaxOneLine < message.length(); i++){
+            sb.insert(i * Config.nbCharactersMaxOneLine, "\n");
+        }
+        String formattedMessage = sb.toString();
 
-        String name = split[0];
         // right if its not me
         if(name.compareTo(this.controller.getState().getName()) != 0){
             SimpleAttributeSet attribs = new SimpleAttributeSet();
@@ -58,8 +72,8 @@ public class DisplayOneMessage extends JTextPane {
             sDoc.insertString(pos, name, nameStyle);
             pos+=name.length();
 
-            sDoc.insertString(pos, split[1], messageStyle);
-            pos+=split[1].length();
+            sDoc.insertString(pos, formattedMessage, messageStyle);
+            pos+=formattedMessage.length();
         } catch (BadLocationException ignored) {
 
         }

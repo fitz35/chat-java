@@ -29,4 +29,8 @@ public class Config {
      */
     public final static Dimension minimumSize = new Dimension(300, 200);
 
+    /**
+     * number of Characters max in one line for the message.
+     */
+    public final static int nbCharactersMaxOneLine = 40;
 }

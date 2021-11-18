@@ -17,6 +17,7 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
     // component
     private final DisplayMessagePanel listMessagesPanel;
     private final SendFormPanel sendForm;
+    private final JScrollPane scrollMessages;
 
     private final JLabel titleLabel;
 
@@ -25,9 +26,9 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
         this.setLayout(new BorderLayout());
 
         this.listMessagesPanel = new DisplayMessagePanel(new ArrayList<>(), controller);
-        JScrollPane scrollMessages = new JScrollPane(this.listMessagesPanel);
-        scrollMessages.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollMessages.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.scrollMessages = new JScrollPane(this.listMessagesPanel);
+        this.scrollMessages.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.scrollMessages.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         this.titleLabel = new JLabel("", SwingConstants.CENTER);
         this.titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
@@ -51,6 +52,10 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().compareTo(ReceiverThread.LAST_MESSAGE) == 0){
             this.listMessagesPanel.addMessage((String) evt.getNewValue());
+            JScrollBar vertical = this.scrollMessages.getVerticalScrollBar();
+            vertical.setValue( vertical.getMaximum() );
+            this.revalidate();
+            this.repaint();
         }
     }
 }
