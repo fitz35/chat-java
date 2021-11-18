@@ -29,4 +29,6 @@ public class Message {
     {
         return (client.getName()+"/"+contents+ "/"+date);
     }
+
+
 }
