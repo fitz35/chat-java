@@ -1,7 +1,8 @@
 package server;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,16 +23,12 @@ public class Room
         return listeMessages;
     }
 
-    public void sendMessageToRoom(String messageNotFormatted, ClientBack client)
+    public void sendMessageToRoom(String formattedMessage)
     {
         try
         {
             for(ClientBack c: listeClients)
             {
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date date = new Date();
-                Message message= new Message(messageNotFormatted, client,date);
-                String formattedMessage= message.getFormattedMessage();
                 PrintStream socOut = new PrintStream(c.getClientSocket().getOutputStream());
                 socOut.println(formattedMessage);
             }
@@ -42,6 +39,22 @@ public class Room
         }
 
     }
+
+    public void writeInFile(String formattedMessage)
+    {
+        try {
+            String filename= this.name+ ".txt";
+            FileWriter myWriter = new FileWriter(filename, true);
+            String toWrite= formattedMessage+"+=";
+            myWriter.write(toWrite);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 
     public String getName() {
         return name;
