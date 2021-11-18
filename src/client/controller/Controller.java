@@ -15,6 +15,8 @@ public class Controller {
     private final ConnectionWindow connectionWindow;
     private final ConnectedWindow connectedWindow;
 
+    private ReceiverThread receiverThread;
+
     public Controller(){
 
         this.connection = new ManageConnection();
@@ -22,27 +24,30 @@ public class Controller {
         this.connectionWindow = new ConnectionWindow(this);
         this.connectedWindow = new ConnectedWindow(this);
 
-        this.setState(new NotConnectedState());
-    }
-
-    /**
-     * connect to the room with the name
-     * @param name the name
-     * @param room the room
-     */
-    public void connection(String name, String room){
-        this.state.connection(name, room, this);
-    }
-
-    /**
-     * disconnect of the server
-     */
-    public void disconnection(){
-        this.state.disconnection(this);
+        this.setState(new NotConnectedState(this));
     }
 
     ////////////////////////////////////////////////////////
 
+    /**
+     * launch the receiver thread
+     */
+    public void launchThread(){
+        this.receiverThread = new ReceiverThread(this.connection, this);
+        this.receiverThread.addChangeListener(this.getConnectedWindow());
+        this.receiverThread.start();
+    }
+
+    /**
+     * stop the receiver thread if it exists
+     */
+    public void stopThread(){
+        if(this.receiverThread != null){
+            this.receiverThread.interrupt();
+            this.receiverThread = null;
+        }
+    }
+    ///////////////////////////////////////////////////////
     /**
      * get the state of the controller
      * @return the state
@@ -58,8 +63,11 @@ public class Controller {
     public void setState(StateController state) {
         this.state = state;
         if(this.state instanceof NotConnectedState){
+            this.connectionWindow.displayButton();
             this.connectionWindow.setVisible(true);
             this.connectedWindow.setVisible(false);
+        }else if(this.state instanceof ConnectingState){
+            this.connectionWindow.displayButton();
         }else if(this.state instanceof ConnectedState){
             this.connectionWindow.setVisible(false);
             this.connectedWindow.setVisible(true);

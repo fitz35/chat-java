@@ -1,7 +1,9 @@
 package client.connexion;
 
+import client.config.Config;
 import client.controller.ConnectedState;
 import client.controller.Controller;
+import client.controller.NotConnectedState;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -34,14 +36,24 @@ public class ReceiverThread extends Thread {
     @Override
     public void run() {
         try {
+            String line = con.getMessage();// first line = if the connection is ok
+            if(line.compareTo(Config.clientAlreadyExist) == 0){
+                System.out.println("client already exist !");
+                controller.getState().disconnection();
+            }else if(line.compareTo(Config.connectionOk) == 0){
+                System.out.println("connection ok !");
+                controller.getState().confirmConnection();
+            }
+
             while(con.isConnected() && controller.getState() instanceof ConnectedState){
-                String line = con.getMessage();
+                line = con.getMessage();
                 this.addMessage(line);
                 System.out.println("Receive : " + line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        controller.getState().disconnection();// error occurred
     }
 
     ////////////////////////////////////

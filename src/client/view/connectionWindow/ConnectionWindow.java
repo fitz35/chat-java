@@ -3,6 +3,7 @@ package client.view.connectionWindow;
 import client.config.ColorPalette;
 import client.config.Config;
 import client.controller.Controller;
+import client.controller.NotConnectedState;
 import client.view.Frame;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class ConnectionWindow extends Frame {
     private final JLabel roomNameLabel, nameLabel;
     private final JLabel errorLabel;
     private final JTextField roomNameField, nameField;
-    private final JButton validate;
+    private final JButton validate, cancelConnection;
 
     private final JPanel askPanel;
 
@@ -52,11 +53,19 @@ public class ConnectionWindow extends Frame {
                 String roomName = roomNameField.getText();
                 if(name.compareTo("") != 0 && roomName.compareTo("") != 0){
                     System.out.println("form ok");
-                    controller.connection(name, roomName);
+                    controller.getState().connection(name, roomName);
                 }else{
                     System.out.println("form empty");
                     formError();
                 }
+            }
+        });
+
+        this.cancelConnection = new JButton("Cancel");
+        this.cancelConnection.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.getState().cancelConnection();
             }
         });
 
@@ -76,6 +85,7 @@ public class ConnectionWindow extends Frame {
         Dimension fillerValidate = new Dimension(Config.minimumSize.width, 20);
         this.askPanel.add(new Box.Filler(fillerValidate, fillerValidate, fillerValidate));
         this.askPanel.add(this.validate);
+        this.askPanel.add(this.cancelConnection);
         this.askPanel.add(this.errorLabel);
 
         //title label
@@ -86,6 +96,25 @@ public class ConnectionWindow extends Frame {
         this.add(this.titleLabel, BorderLayout.NORTH);
         this.add(this.askPanel, BorderLayout.CENTER);
         this.pack();
+        this.displayButton();
+    }
+    ////////////////////////////////////////
+    // manage button
+    ////////////////////////////////////////
+
+    /**
+     * display the correct button with the state of the controller
+     */
+    public void displayButton(){
+        this.validate.setVisible(false);
+        this.cancelConnection.setVisible(false);
+        if(this.controller.getState() instanceof NotConnectedState){
+            this.validate.setVisible(true);
+        }else{
+            this.cancelConnection.setVisible(true);
+        }
+        this.revalidate();
+        this.repaint();
     }
 
     ////////////////////////////////////////
