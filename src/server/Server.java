@@ -3,6 +3,8 @@ package server;
 import server.config.Config;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,6 +26,19 @@ public class Server {
         }
         Room r= new Room(roomName);
         listRooms.add(r);
+        try {
+            String filename= roomName+".txt";
+            File myFile = new File(filename);
+            if (myFile.createNewFile()) {
+
+                System.out.println("File created: " + myFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file");
+            e.printStackTrace();
+        }
         return r;
 
     }

@@ -13,7 +13,7 @@ public class ServerThread extends Thread
 {
 
     private Socket clientSocket;
-    private Date date;
+   // private Date date;
     private Room room;
     private ClientBack client;
 
@@ -62,8 +62,11 @@ public class ServerThread extends Thread
                 line= socIn.readLine();
                 while(line. compareTo("exit")!=0)
                 {
-                    room.sendMessageToRoom(line, client);
-                    date= new Date();
+                    Date date = new Date();
+                    Message message= new Message(line, client,date);
+                    String formattedMessage= message.getFormattedMessage();
+                    room.sendMessageToRoom(formattedMessage);
+                    room.writeInFile(formattedMessage);
                     room.getListeMessages().add(new Message(line, client,date ));
                     line=socIn.readLine();
                 }
