@@ -18,6 +18,10 @@ public class Room
         this.name=name;
     }
 
+    public ArrayList<Message> getListeMessages() {
+        return listeMessages;
+    }
+
     public void sendMessageToRoom(String messageNotFormatted, ClientBack client)
     {
         try
@@ -43,6 +47,10 @@ public class Room
         return name;
     }
 
+    public ArrayList<ClientBack> getListeClients() {
+        return listeClients;
+    }
+
     public boolean identifyClient(String inputDetails)
     {
 
@@ -61,4 +69,6 @@ public class Room
     {
         listeClients.add(c);
     }
+
+
 }
