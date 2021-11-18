@@ -52,7 +52,7 @@ public class ConnectionWindow extends Frame {
                 String roomName = roomNameField.getText();
                 if(name.compareTo("") != 0 && roomName.compareTo("") != 0){
                     System.out.println("form ok");
-                    controller.connection(name, roomName);
+                    controller.getState().connection(name, roomName, controller);
                 }else{
                     System.out.println("form empty");
                     formError();

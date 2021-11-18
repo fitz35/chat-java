@@ -34,6 +34,8 @@ public class ReceiverThread extends Thread {
     @Override
     public void run() {
         try {
+
+
             while(con.isConnected() && controller.getState() instanceof ConnectedState){
                 String line = con.getMessage();
                 this.addMessage(line);

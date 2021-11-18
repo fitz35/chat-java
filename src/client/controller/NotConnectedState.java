@@ -22,7 +22,7 @@ public class NotConnectedState extends StateController {
             ReceiverThread ct = new ReceiverThread(con, controller);
             ct.addChangeListener(controller.getConnectedWindow());
             ct.start();
-            controller.setState(new ConnectedState(name, room));
+            controller.setState(new ConnectingState(name, room));
         }else{
             controller.getConnectionWindow().connectionError();
         }

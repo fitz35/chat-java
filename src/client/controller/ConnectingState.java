@@ -1,15 +1,20 @@
 package client.controller;
 
 /**
- * state when we are connected
+ * state connecting to the server
  */
-public class ConnectedState extends StateController{
+public class ConnectingState extends StateController{
     private final String name;
     private final String room;
 
-    public ConnectedState(String name, String room){
+    public ConnectingState(String name, String room){
         this.name = name;
         this.room = room;
+    }
+
+    @Override
+    public void confirmConnection(Controller controller){
+        controller.setState(new ConnectedState(this.name, this.room));
     }
 
     @Override

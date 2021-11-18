@@ -19,6 +19,14 @@ public abstract class StateController {
     public void disconnection(Controller controller){}
 
     /**
+     * confirm a connection
+     * @param controller the controller
+     */
+    public void confirmConnection(Controller controller){}
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /**
      * get the room name (null if not connected)
      * @return the room name
      */

@@ -25,22 +25,6 @@ public class Controller {
         this.setState(new NotConnectedState());
     }
 
-    /**
-     * connect to the room with the name
-     * @param name the name
-     * @param room the room
-     */
-    public void connection(String name, String room){
-        this.state.connection(name, room, this);
-    }
-
-    /**
-     * disconnect of the server
-     */
-    public void disconnection(){
-        this.state.disconnection(this);
-    }
-
     ////////////////////////////////////////////////////////
 
     /**
