@@ -1,5 +1,7 @@
 package server;
 
+import server.config.Config;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -36,23 +38,20 @@ public class ServerThread extends Thread
             if(!clientDoesNotExist)
             {
                 System.out.println("Client exists already in this room");
-                socOut.println("/Client exists already in this room/");
-
+                //socOut.println(Config.clientAlreadyExist);
             }
             else
             {
                 ClientBack client= new ClientBack(details[0], clientSocket);
                 room.addClient(client);
                 System.out.println("Connexion from: " + clientSocket.getInetAddress()+ " called "+details[0]);
-                socOut.println(" /Connexion /");
+                socOut.println(Config.connectionOk);
                 line= socIn.readLine();
                 while(line. compareTo("exit")!=0)
                 {
                     room.sendMessageToRoom(line, client);
                     line=socIn.readLine();
                 }
-
-
             }
             socIn.close();
 

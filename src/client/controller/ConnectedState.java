@@ -7,15 +7,17 @@ public class ConnectedState extends StateController{
     private final String name;
     private final String room;
 
-    public ConnectedState(String name, String room){
+    public ConnectedState(String name, String room, Controller controller){
+        super(controller);
         this.name = name;
         this.room = room;
     }
 
     @Override
-    public void disconnection(Controller controller){
+    public void disconnection(){
         controller.getConnection().disconnection();
-        controller.setState(new NotConnectedState());
+        this.controller.getConnectionWindow().connectionError();
+        controller.setState(new NotConnectedState(this.controller));
     }
 
     @Override

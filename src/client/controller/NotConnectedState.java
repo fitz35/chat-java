@@ -9,22 +9,20 @@ import client.connexion.ReceiverThread;
  */
 public class NotConnectedState extends StateController {
 
-    public NotConnectedState(){
-
+    public NotConnectedState(Controller controller){
+        super(controller);
     }
 
     @Override
-    public void connection(String name, String room, Controller controller){
-        ManageConnection con = controller.getConnection();
+    public void connection(String name, String room){
+        ManageConnection con = this.controller.getConnection();
         if(con.connection(Config.host, Config.port, name, room)){
             System.out.println("connected to " + Config.host + ":" + Config.port +
                     ", to the room : " + room + " with the name : " + name + "!");
-            ReceiverThread ct = new ReceiverThread(con, controller);
-            ct.addChangeListener(controller.getConnectedWindow());
-            ct.start();
-            controller.setState(new ConnectingState(name, room));
+            this.controller.launchThread();
+            this.controller.setState(new ConnectingState(name, room, this.controller));
         }else{
-            controller.getConnectionWindow().connectionError();
+            this.controller.getConnectionWindow().connectionError();
         }
     }
 }

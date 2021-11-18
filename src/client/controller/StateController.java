@@ -5,25 +5,34 @@ package client.controller;
  */
 public abstract class StateController {
     /**
+     * controller
+     */
+    protected Controller controller;
+
+    public StateController(Controller controller){
+        this.controller = controller;
+    }
+    /**
      * connection to a room with a name
      * @param name the name
      * @param room the room
-     * @param controller the controller
      */
-    public void connection(String name, String room, Controller controller){}
+    public void connection(String name, String room){}
 
     /**
      * disconnection
-     * @param controller the controller
      */
-    public void disconnection(Controller controller){}
+    public void disconnection(){}
 
     /**
      * confirm a connection
-     * @param controller the controller
      */
-    public void confirmConnection(Controller controller){}
+    public void confirmConnection(){}
 
+    /**
+     * cancel a connection if we attempt to do one
+     */
+    public void cancelConnection(){}
     ////////////////////////////////////////////////////////////////////////////
 
     /**
