@@ -44,4 +44,9 @@ public class Config {
      * number of Characters max in one line for the message.
      */
     public final static int nbCharactersMaxOneLine = 40;
+
+    /**
+     * position in the window of self message (true = right, false = left).
+     */
+    public final static boolean selfPositionMessageDisplay = false;
 }

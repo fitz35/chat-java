@@ -21,7 +21,9 @@ public class DisplayOneMessage extends JTextPane {
         this.message = message;
         this.controller = controller;
 
-        this.formatMessage(message);
+        this.setEditable(false);
+
+        this.formatMessage();
         if(message.isClientNamed(this.controller.getState().getName())){
             this.setBorder(BorderFactory.createLineBorder(ColorPalette.oneMessageSelfColor));
         }else{
@@ -34,17 +36,16 @@ public class DisplayOneMessage extends JTextPane {
 
     /**
      * format a message to display it
-     * @param message the message to display
      */
-    private void formatMessage(Message message){
+    private void formatMessage(){
         StringBuilder sb = new StringBuilder(message.getMessage());
         for(int i = 1 ; i * Config.nbCharactersMaxOneLine < message.getMessage().length(); i++){
             sb.insert(i * Config.nbCharactersMaxOneLine, "\n");
         }
         String formattedMessage = sb.toString();
 
-        // right if its not me
-        if(!message.isClientNamed(this.controller.getState().getName())){
+        // right if true
+        if(positionInWindow()){
             SimpleAttributeSet attribs = new SimpleAttributeSet();
             StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
             this.setParagraphAttributes(attribs, true);
@@ -62,18 +63,55 @@ public class DisplayOneMessage extends JTextPane {
         // the message style
         Style messageStyle = this.addStyle("messageStyle", customDefaultStyle);
 
+        // the style of a date
+        Style dateStyle = this.addStyle("dateStyle", customDefaultStyle);
+        StyleConstants.setForeground(dateStyle, ColorPalette.dateColor);
+        StyleConstants.setFontSize(dateStyle, 16);
+
         StyledDocument sDoc = (StyledDocument)this.getDocument();
-        String messageToDisplay = message.getClientName();
+
         try {
             int pos = 0;
-            messageToDisplay += "\n";
-            sDoc.insertString(pos, messageToDisplay, nameStyle);
-            pos+=messageToDisplay.length();
 
+            //date if right
+            if(this.positionInWindow()){
+                String dateToDisplay = message.getDate() + " ";
+                sDoc.insertString(pos, dateToDisplay, dateStyle);
+                pos+=dateToDisplay.length();
+            }
+
+            // name
+            String nameToDisplay = message.getClientName();
+            if(this.positionInWindow()) {// if there is no date after
+                nameToDisplay += "\n";
+            }
+            sDoc.insertString(pos, nameToDisplay, nameStyle);
+            pos+=nameToDisplay.length();
+
+            // date if left
+            if(!this.positionInWindow()){
+                String dateToDisplay = " " + message.getDate() + "\n";
+                sDoc.insertString(pos, dateToDisplay, dateStyle);
+                pos+=dateToDisplay.length();
+            }
+
+            // message
             sDoc.insertString(pos, formattedMessage, messageStyle);
             pos+=formattedMessage.length();
         } catch (BadLocationException ignored) {
 
+        }
+    }
+
+    /**
+     * return the position of the message in the window (true = right, false = left)
+     * @return the position of the message in the window (true = right, false = left)
+     */
+    private boolean positionInWindow(){
+        if(this.message.isClientNamed(this.controller.getState().getName())){
+            return Config.selfPositionMessageDisplay;
+        }else{
+            return !Config.selfPositionMessageDisplay;
         }
     }
 
