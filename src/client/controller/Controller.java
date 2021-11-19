@@ -1,7 +1,7 @@
 package client.controller;
 
-import client.connexion.ManageConnection;
-import client.connexion.ReceiverThread;
+import client.model.connexion.ManageConnection;
+import client.model.connexion.ReceiverThread;
 import client.view.connectedWindow.ConnectedWindow;
 import client.view.connectionWindow.ConnectionWindow;
 
