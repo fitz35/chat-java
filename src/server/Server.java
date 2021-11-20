@@ -2,13 +2,16 @@ package server;
 
 import server.config.Config;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class Server {
     private static ArrayList<Room> listRooms;
@@ -28,7 +31,45 @@ public class Server {
         listRooms.add(r);
         try {
             String filename= roomName+".txt";
-            File myFile = new File(filename);
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String line;
+
+                    while ((line = br.readLine()) != null)
+                    {
+                        String[]lineComponents= line.split("/");
+                        Date dateTime=new SimpleDateFormat(Config.pattern).parse(lineComponents[2]);
+                        Message m= new Message(lineComponents[0], lineComponents[1], dateTime);
+                        r.getListeMessages().add(m);
+                    }
+                     br.close();
+                }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+                File myFile = new File(filename);
+                if (myFile.createNewFile())
+                {
+                    System.out.println("File created: " + myFile.getName());
+                 }
+                else
+                {
+                System.out.println("File already exists.");
+                }
+             }
+            catch (IOException e)
+            {
+            System.out.println("An error occurred while creating the file");
+            e.printStackTrace();
+             } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        return r;
+            /*File myFile = new File(filename);
             if (myFile.createNewFile()) {
 
                 System.out.println("File created: " + myFile.getName());
@@ -38,8 +79,7 @@ public class Server {
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file");
             e.printStackTrace();
-        }
-        return r;
+        }*/
 
     }
 

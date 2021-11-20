@@ -21,4 +21,9 @@ public class Config {
      * message send if the connection are ok
      */
     public final static String connectionOk = " /Connexion /";
+
+    public final static String pattern = "yyyy-MM-dd HH:mm:ssZ";
+
+    public final static String toWrite= "\n";
+
 }

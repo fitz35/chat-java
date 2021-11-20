@@ -1,5 +1,7 @@
 package server;
 
+import server.config.Config;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -40,12 +42,13 @@ public class Room
 
     }
 
+
     public void writeInFile(String formattedMessage)
     {
         try {
             String filename= this.name+ ".txt";
             FileWriter myWriter = new FileWriter(filename, true);
-            String toWrite= formattedMessage+"+=";
+            String toWrite= formattedMessage+ Config.toWrite;
             myWriter.write(toWrite);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");

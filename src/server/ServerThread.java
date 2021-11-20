@@ -55,7 +55,6 @@ public class ServerThread extends Thread
                 ArrayList<Message> listeMessage= room.getListeMessages();
                 for(Message m: listeMessage)
                 {
-                    System.out.println("dans le for");
                     String formattedMessage=m.getFormattedMessage();
                     socOut.println(formattedMessage);
                 }
@@ -63,12 +62,13 @@ public class ServerThread extends Thread
                 line= socIn.readLine();
                 while(line. compareTo("exit")!=0)
                 {
+
                     Date date = new Date();
-                    Message message= new Message(line, client,date);
+                    Message message= new Message(line, client.getName(),date);
                     String formattedMessage= message.getFormattedMessage();
                     room.sendMessageToRoom(formattedMessage);
                     room.writeInFile(formattedMessage);
-                    room.getListeMessages().add(new Message(line, client,date ));
+                    room.getListeMessages().add(new Message(line, client.getName(),date ));
                     line=socIn.readLine();
                 }
             }

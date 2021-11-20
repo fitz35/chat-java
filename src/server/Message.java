@@ -1,14 +1,17 @@
 package server;
 
+import server.config.Config;
+
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
     private String contents;
-    private ClientBack client;
+    private String client;
     private Date date;
 
-    public Message(String contents, ClientBack client, Date date) {
+    public Message(String contents, String client, Date date) {
         this.contents = contents;
         this.client = client;
         this.date = date;
@@ -18,16 +21,15 @@ public class Message {
         return contents;
     }
 
-    public ClientBack getClient() {
-        return client;
-    }
 
     public Date getDate() {
         return date;
     }
     public String getFormattedMessage()
     {
-        return (client.getName()+"/"+contents+ "/"+date);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Config.pattern);
+        String formattedDate= simpleDateFormat.format(date);
+        return (client+"/"+contents+ "/"+formattedDate);
     }
 
 
