@@ -1,8 +1,7 @@
 package client.controller;
 
 import client.config.Config;
-import client.connexion.ManageConnection;
-import client.connexion.ReceiverThread;
+import client.model.connexion.ManageConnection;
 
 /**
  * state when we aren't connected

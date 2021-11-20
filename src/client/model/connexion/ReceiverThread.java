@@ -1,9 +1,9 @@
-package client.connexion;
+package client.model.connexion;
 
 import client.config.Config;
 import client.controller.ConnectedState;
 import client.controller.Controller;
-import client.controller.NotConnectedState;
+import client.model.data.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,8 +20,8 @@ public class ReceiverThread extends Thread {
     private final ManageConnection con;
     private final Controller controller;
 
-    private final ArrayList<String> messages;
-    private String lastMessage;
+    private final ArrayList<Message> messages;
+    private Message lastMessage;
 
     /**
      *
@@ -47,7 +47,7 @@ public class ReceiverThread extends Thread {
 
             while(con.isConnected() && controller.getState() instanceof ConnectedState){
                 line = con.getMessage();
-                this.addMessage(line);
+                this.addMessage(Message.getMessageFromFormatted(line));
                 System.out.println("Receive : " + line);
             }
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class ReceiverThread extends Thread {
      * add a message to the list
      * @param message the message
      */
-    private void addMessage(String message) {
+    private void addMessage(Message message) {
         notifyListeners(
                 LAST_MESSAGE,
                 this.lastMessage,
@@ -83,7 +83,7 @@ public class ReceiverThread extends Thread {
      * @param oldValue the old value
      * @param newValue the new value
      */
-    private void notifyListeners(String property, String oldValue, String newValue) {
+    private void notifyListeners(String property, Message oldValue, Message newValue) {
         for (PropertyChangeListener name : this.listener) {
             name.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
         }

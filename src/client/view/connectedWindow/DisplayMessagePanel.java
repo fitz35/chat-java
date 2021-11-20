@@ -2,6 +2,7 @@ package client.view.connectedWindow;
 
 import client.config.Config;
 import client.controller.Controller;
+import client.model.data.Message;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +13,14 @@ import java.util.ArrayList;
  */
 public class DisplayMessagePanel extends JPanel {
 
-    private ArrayList<String> listMessages;
+    private ArrayList<Message> listMessages;
     private final Controller controller;
 
     // component
     private final ArrayList<DisplayOneMessage> listMessagesDisplay;
 
 
-    public DisplayMessagePanel(ArrayList<String> listMessages, Controller controller){
+    public DisplayMessagePanel(ArrayList<Message> listMessages, Controller controller){
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -28,7 +29,7 @@ public class DisplayMessagePanel extends JPanel {
         this.listMessages = listMessages;
         this.listMessagesDisplay = new ArrayList<>();
 
-        for(String message : this.listMessages){
+        for(Message message : this.listMessages){
             DisplayOneMessage messageDisplay = new DisplayOneMessage(message, this.controller);
             this.listMessagesDisplay.add(messageDisplay);
             this.add(messageDisplay);
@@ -41,7 +42,7 @@ public class DisplayMessagePanel extends JPanel {
      * add a message to display
      * @param message the message to add
      */
-    public void addMessage(String message){
+    public void addMessage(Message message){
         this.listMessages.add(message);
         DisplayOneMessage messageDisplay = new DisplayOneMessage(message, this.controller);
         this.listMessagesDisplay.add(messageDisplay);

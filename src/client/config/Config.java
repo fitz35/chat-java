@@ -1,6 +1,7 @@
 package client.config;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * manage client.config
@@ -31,6 +32,10 @@ public class Config {
     // IHM
     //////////////////////////////////////////////////////////////
     /**
+     * the forbidden string in the message
+     */
+    public final static String[] forbiddenStringInMessage = {"+=", "/"};
+    /**
      * preferred size of the window
      */
     public final static Dimension preferredSize = new Dimension(500, 500);
@@ -44,4 +49,9 @@ public class Config {
      * number of Characters max in one line for the message.
      */
     public final static int nbCharactersMaxOneLine = 40;
+
+    /**
+     * position in the window of self message (true = right, false = left).
+     */
+    public final static boolean selfPositionMessageDisplay = false;
 }

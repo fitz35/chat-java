@@ -1,7 +1,8 @@
 package client.view.connectedWindow;
 
-import client.connexion.ReceiverThread;
+import client.model.connexion.ReceiverThread;
 import client.controller.Controller;
+import client.model.data.Message;
 import client.view.Frame;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().compareTo(ReceiverThread.LAST_MESSAGE) == 0){
-            this.listMessagesPanel.addMessage((String) evt.getNewValue());
+            this.listMessagesPanel.addMessage((Message) evt.getNewValue());
             JScrollBar vertical = this.scrollMessages.getVerticalScrollBar();
             vertical.setValue( vertical.getMaximum() );
             this.revalidate();
