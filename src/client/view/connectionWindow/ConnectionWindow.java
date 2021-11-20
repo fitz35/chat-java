@@ -160,6 +160,4 @@ public class ConnectionWindow extends Frame {
         this.errorLabel.setText("An error occur with the connection !");
         this.errorLabel.setVisible(true);
     }
-
-
 }

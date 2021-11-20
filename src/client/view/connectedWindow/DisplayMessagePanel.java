@@ -51,4 +51,15 @@ public class DisplayMessagePanel extends JPanel {
         this.validate();
         this.repaint();
     }
+
+    /**
+     * remove all the message
+     */
+    public void clearMessages(){
+        this.removeAll();
+        this.listMessages.clear();
+        this.listMessagesDisplay.clear();
+        this.validate();
+        this.repaint();
+    }
 }

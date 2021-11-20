@@ -22,8 +22,18 @@ public class Config {
      */
     public final static String connectionOk = " /Connexion /";
 
+    /**
+     * pattern of a date
+     */
     public final static String pattern = "yyyy-MM-dd HH:mm:ssZ";
 
+    /**
+     * separator of the message
+     */
     public final static String toWrite= "\n";
 
+    /**
+     * path to the files of data
+     */
+    public final static String dataPath = "./data/";
 }
