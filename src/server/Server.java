@@ -39,7 +39,7 @@ public class Server {
                     {
                         String[]lineComponents= line.split("/");
                         Date dateTime=new SimpleDateFormat(Config.pattern).parse(lineComponents[2]);
-                        Message m= new Message(lineComponents[0], lineComponents[1], dateTime);
+                        Message m= new Message(lineComponents[1], lineComponents[0], dateTime);
                         r.getListeMessages().add(m);
                     }
                      br.close();
