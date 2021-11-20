@@ -2,6 +2,7 @@ package client.view.connectedWindow;
 
 import client.config.Config;
 import client.controller.Controller;
+import client.model.data.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,10 @@ public class SendFormPanel extends JPanel {
         this.sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(sendField.getText().compareTo("") != 0){
+                if(Util.isInString(sendField.getText(), Config.forbiddenStringInMessage)){
+                    System.out.println("forbidden string encountered");
+                }
+                else if(sendField.getText().compareTo("") != 0){
                     System.out.println("send (ihm) : " + sendField.getText());
                     controller.getConnection().sendMessage(sendField.getText());
                 }

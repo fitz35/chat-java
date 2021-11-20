@@ -1,6 +1,7 @@
 package client.config;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * manage client.config
@@ -30,6 +31,10 @@ public class Config {
     //////////////////////////////////////////////////////////////
     // IHM
     //////////////////////////////////////////////////////////////
+    /**
+     * the forbidden string in the message
+     */
+    public final static String[] forbiddenStringInMessage = {"+=", "/"};
     /**
      * preferred size of the window
      */
