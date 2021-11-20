@@ -30,7 +30,7 @@ public class Server {
         Room r= new Room(roomName);
         listRooms.add(r);
         try {
-            String filename= roomName+".txt";
+            String filename= Config.dataPath + roomName+".txt";
             try {
                 BufferedReader br = new BufferedReader(new FileReader(filename));
                 String line;

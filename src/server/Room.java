@@ -46,7 +46,7 @@ public class Room
     public void writeInFile(String formattedMessage)
     {
         try {
-            String filename= this.name+ ".txt";
+            String filename= Config.dataPath + this.name+ ".txt";
             FileWriter myWriter = new FileWriter(filename, true);
             String toWrite= formattedMessage+ Config.toWrite;
             myWriter.write(toWrite);
