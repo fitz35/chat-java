@@ -4,6 +4,7 @@ import client.config.ColorPalette;
 import client.config.Config;
 import client.controller.Controller;
 import client.controller.NotConnectedState;
+import client.model.data.Util;
 import client.view.Frame;
 
 import javax.swing.*;
@@ -51,7 +52,11 @@ public class ConnectionWindow extends Frame {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 String roomName = roomNameField.getText();
-                if(name.compareTo("") != 0 && roomName.compareTo("") != 0){
+                if(Util.isInString(roomName, Config.forbiddenStringInMessage) || Util.isInString(name, Config.forbiddenStringInMessage)){
+                    System.out.println("form contain forbidden string");
+                    forbiddenStringError();
+                }
+                else if(name.compareTo("") != 0 && roomName.compareTo("") != 0){
                     System.out.println("form ok");
                     controller.getState().connection(name, roomName);
                 }else{
@@ -133,6 +138,18 @@ public class ConnectionWindow extends Frame {
      */
     private void formError(){
         this.errorLabel.setText("Please fill all the form !");
+        this.errorLabel.setVisible(true);
+    }
+
+    /**
+     * manage the error from the user
+     */
+    private void forbiddenStringError(){
+        StringBuilder toDisplay = new StringBuilder("The following string are forbidden in the name : ");
+        for(String forbidden : Config.forbiddenStringInMessage){
+            toDisplay.append("\"").append(forbidden).append("\", ");
+        }
+        this.errorLabel.setText(toDisplay.toString());
         this.errorLabel.setVisible(true);
     }
 
