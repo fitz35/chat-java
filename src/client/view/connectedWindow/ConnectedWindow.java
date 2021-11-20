@@ -49,6 +49,13 @@ public class ConnectedWindow extends Frame implements PropertyChangeListener {
                 controller.getState().getName() + "!");
     }
 
+    /**
+     * clear the window
+     */
+    public void clearWindow(){
+        this.listMessagesPanel.clearMessages();
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().compareTo(ReceiverThread.LAST_MESSAGE) == 0){

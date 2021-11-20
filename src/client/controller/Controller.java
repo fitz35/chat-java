@@ -65,6 +65,7 @@ public class Controller {
         if(this.state instanceof NotConnectedState){
             this.connectionWindow.displayButton();
             this.connectionWindow.setVisible(true);
+            this.connectedWindow.clearWindow();
             this.connectedWindow.setVisible(false);
         }else if(this.state instanceof ConnectingState){
             this.connectionWindow.displayButton();
