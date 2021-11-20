@@ -13,12 +13,18 @@ public class Room
     private ArrayList<ClientBack> listeClients;
     private ArrayList< Message> listeMessages;
     private String name;
+    private String addrIp;
 
-    public Room(String name)
+    public Room(String name,String addrIp )
     {
         this.listeClients= new ArrayList<>();
         this.listeMessages=new ArrayList<>();
         this.name=name;
+        this.addrIp=addrIp;
+    }
+
+    public String getAddrIp() {
+        return addrIp;
     }
 
     public ArrayList<Message> getListeMessages() {

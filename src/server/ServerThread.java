@@ -52,6 +52,7 @@ public class ServerThread extends Thread
                 room.addClient(client);
                 System.out.println("Connexion from: " + clientSocket.getInetAddress()+ " called "+details[0]);
                 socOut.println(Config.connectionOk);
+                socOut.println(room.getAddrIp());
                 ArrayList<Message> listeMessage= room.getListeMessages();
                 for(Message m: listeMessage)
                 {

@@ -16,6 +16,7 @@ import java.util.Locale;
 public class Server {
     private static ArrayList<Room> listRooms;
     private static ServerSocket listenSocket;
+    private static int ipCounter=0;
 
 
     public static Room IdentifyRoom(String roomName)
@@ -27,7 +28,11 @@ public class Server {
                 return r;
             }
         }
-        Room r= new Room(roomName);
+
+        //We can have only 255 rooms
+        String addressIp = "255.255.255." +ipCounter;
+        ipCounter++;
+        Room r= new Room(roomName, addressIp);
         listRooms.add(r);
         try {
             String filename= roomName+".txt";
