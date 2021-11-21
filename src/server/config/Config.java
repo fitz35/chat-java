@@ -9,6 +9,11 @@ public class Config {
      */
     public final static int port = 85;
 
+    /**
+     * multicast port of the server
+     */
+    public final static int multiCastPort= 86;
+
     ////////////////////////////////////////////////////////////////
     // connection message
     ////////////////////////////////////////////////////////////////
@@ -21,6 +26,11 @@ public class Config {
      * message send if the connection are ok
      */
     public final static String connectionOk = " /Connexion /";
+
+    /**
+     * message send if their is no more old message
+     */
+    public final static String finishToSendOldMessage = "End of old messages";
 
     /**
      * pattern of a date
@@ -37,5 +47,4 @@ public class Config {
      */
     public final static String dataPath = "./data/";
 
-    public final static int multiCastPort= 86;
 }

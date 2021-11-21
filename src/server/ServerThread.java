@@ -57,12 +57,13 @@ public class ServerThread extends Thread
                 socOut.println(Config.connectionOk);
                 socOut.println(room.getAddrIp());
                 ArrayList<Message> listeMessage= room.getListeMessages();
+                System.out.println("sending " + listeMessage.size() + " old messages...");
                 for(Message m: listeMessage)
                 {
                     String formattedMessage=m.getFormattedMessage();
                     socOut.println(formattedMessage);
                 }
-                socOut.println("End of old messages");
+                socOut.println(Config.finishToSendOldMessage);
                 line= socIn.readLine();
                 while(line. compareTo("exit")!=0)
                 {

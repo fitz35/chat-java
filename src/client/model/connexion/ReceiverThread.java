@@ -49,7 +49,8 @@ public class ReceiverThread extends Thread {
             if(controller.getState() instanceof ConnectedState){
 
                 line = con.getMessage();
-                while(line.compareTo(Config.finishToSendOldMessage) == 0){// old message
+                while(line.compareTo(Config.finishToSendOldMessage) != 0){// old message
+                    System.out.println("Receive old message : " + line);
                     this.addMessage(Message.getMessageFromFormatted(line));
                     line = con.getMessage();
                 }
