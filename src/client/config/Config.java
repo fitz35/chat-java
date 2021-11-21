@@ -42,7 +42,7 @@ public class Config {
     /**
      * message send if their is no more old message
      */
-    public final static String finishToSendOldMessage = "";
+    public final static String finishToSendOldMessage = "End of old messages";
     //////////////////////////////////////////////////////////////
     // IHM
     //////////////////////////////////////////////////////////////

@@ -62,6 +62,7 @@ public class ServerThread extends Thread
                     String formattedMessage=m.getFormattedMessage();
                     socOut.println(formattedMessage);
                 }
+                socOut.println("End of old messages");
                 line= socIn.readLine();
                 while(line. compareTo("exit")!=0)
                 {
