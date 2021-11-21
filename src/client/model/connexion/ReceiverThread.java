@@ -43,6 +43,7 @@ public class ReceiverThread extends Thread {
             }else if(line.compareTo(Config.connectionOk) == 0){
                 System.out.println("connection ok !");
                 line = con.getMessage();// second line = ip
+                System.out.println("ip of the room : " + line);
                 controller.getState().confirmConnection(line);
             }
 

@@ -16,7 +16,7 @@ public class NotConnectedState extends StateController {
     public void connection(String name, String room){
         ManageConnection con = this.controller.getConnection();
         if(con.connection(Config.host, Config.connectionPort, name, room)){
-            System.out.println("connected to " + Config.host + ":" + Config.connectionPort +
+            System.out.println("connection to " + Config.host + ":" + Config.connectionPort +
                     ", to the room : " + room + " with the name : " + name + "!");
             this.controller.launchThread();
             this.controller.setState(new ConnectingState(name, room, this.controller));

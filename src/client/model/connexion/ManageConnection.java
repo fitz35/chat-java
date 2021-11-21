@@ -56,6 +56,9 @@ public class ManageConnection {
         try {
             this.echoSocket = new Socket(host, port);
             this.socIn = new BufferedReader(new InputStreamReader(this.echoSocket.getInputStream()));
+            PrintStream socOut= new PrintStream(this.echoSocket.getOutputStream());
+
+            socOut.println(name + "/" + room);
 
             if(this.echoSocket.isConnected()){
                 return true;
