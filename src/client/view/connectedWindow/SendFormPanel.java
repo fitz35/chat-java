@@ -35,11 +35,7 @@ public class SendFormPanel extends JPanel {
                 }
                 else if(sendField.getText().compareTo("") != 0){
                     System.out.println("send (ihm) : " + sendField.getText());
-                    try {
-                        controller.getState().getMulticast().send(sendField.getText());
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
+                    controller.getConnection().sendMessage(sendField.getText());
                 }
             }
         });
