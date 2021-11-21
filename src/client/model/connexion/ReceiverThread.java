@@ -49,8 +49,8 @@ public class ReceiverThread extends Thread {
 
             while(controller.getState() instanceof ConnectedState){
                 line = controller.getState().getMulticast().receive();
-                this.addMessage(Message.getMessageFromFormatted(line));
                 System.out.println("Receive : " + line);
+                this.addMessage(Message.getMessageFromFormatted(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
