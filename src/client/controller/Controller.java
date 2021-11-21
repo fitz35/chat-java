@@ -5,6 +5,7 @@ import client.model.connexion.ReceiverThread;
 import client.view.connectedWindow.ConnectedWindow;
 import client.view.connectionWindow.ConnectionWindow;
 
+
 /**
  * the controller of the application
  */
@@ -47,6 +48,7 @@ public class Controller {
             this.receiverThread = null;
         }
     }
+
     ///////////////////////////////////////////////////////
     /**
      * get the state of the controller
