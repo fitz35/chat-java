@@ -38,6 +38,11 @@ public class Config {
      * message send if the connection are ok
      */
     public final static String connectionOk = " /Connexion /";
+
+    /**
+     * message send if their is no more old message
+     */
+    public final static String finishToSendOldMessage = "";
     //////////////////////////////////////////////////////////////
     // IHM
     //////////////////////////////////////////////////////////////

@@ -46,11 +46,19 @@ public class ReceiverThread extends Thread {
                 System.out.println("ip of the room : " + line);
                 controller.getState().confirmConnection(line);
             }
+            if(controller.getState() instanceof ConnectedState){
 
-            while(controller.getState() instanceof ConnectedState){
-                line = controller.getState().getMulticast().receive();
-                System.out.println("Receive : " + line);
-                this.addMessage(Message.getMessageFromFormatted(line));
+                line = con.getMessage();
+                while(line.compareTo(Config.finishToSendOldMessage) == 0){// old message
+                    this.addMessage(Message.getMessageFromFormatted(line));
+                    line = con.getMessage();
+                }
+
+                while(controller.getState() instanceof ConnectedState){ // new one
+                    line = controller.getState().getMulticast().receive();
+                    System.out.println("Receive : " + line);
+                    this.addMessage(Message.getMessageFromFormatted(line));
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
