@@ -1,5 +1,10 @@
 package client.controller;
 
+import client.config.Config;
+import client.model.connexion.ManageMulticast;
+
+import java.io.IOException;
+
 /**
  * state connecting to the server
  */
@@ -14,22 +19,20 @@ public class ConnectingState extends StateController{
     }
 
     @Override
-    public void confirmConnection(){
-        controller.setState(new ConnectedState(this.name, this.room, this.controller));
-    }
-
-    @Override
-    public void disconnection(){
-        controller.getConnection().disconnection();
-        this.controller.getConnectionWindow().connectionError();
-        controller.setState(new NotConnectedState(this.controller));
+    public void confirmConnection(String ip){
+        try{
+            this.controller.setState(new ConnectedState(this.name, this.room, new ManageMulticast(ip, Config.multicastPort), this.controller));
+        } catch (IOException e) {
+            System.out.println("An error occurred when trying to establish a multicast connection");
+            this.controller.setState(new NotConnectedState(this.controller));
+        }
     }
 
     @Override
     public void cancelConnection(){
-        controller.getConnection().disconnection();
-        controller.stopThread();
-        controller.setState(new NotConnectedState(this.controller));
+        this.controller.getConnection().disconnection();
+        this.controller.stopThread();
+        this.controller.setState(new NotConnectedState(this.controller));
     }
 
     @Override

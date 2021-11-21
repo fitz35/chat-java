@@ -10,12 +10,22 @@ public class Config {
     /**
      * port of the server
      */
-    public final static int port = 85;
+    public final static int connectionPort = 85;
+
+    /**
+     * the multicast port
+     */
+    public final static int multicastPort = 86;
 
     /**
      * the host of the server
      */
     public final static String host = "localhost";
+
+    /**
+     * maximal length of a message
+     */
+    public final static int maximalLengthOfMessage = 242000;
     ////////////////////////////////////////////////////////////////
     // connection message
     ////////////////////////////////////////////////////////////////

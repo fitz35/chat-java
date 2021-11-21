@@ -1,5 +1,7 @@
 package client.controller;
 
+import client.model.connexion.ManageMulticast;
+
 /**
  * the state of a controller
  */
@@ -22,12 +24,18 @@ public abstract class StateController {
     /**
      * disconnection
      */
-    public void disconnection(){}
+    public void disconnection(){
+        this.controller.getConnection().disconnection();
+        this.controller.getConnectionWindow().connectionError();
+        this.controller.stopThread();
+        this.controller.setState(new NotConnectedState(this.controller));
+    }
 
     /**
-     * confirm a connection
+     * confirm a connection with establishment of multicast socket
+     * @param ip the ip of the group for the multicast
      */
-    public void confirmConnection(){}
+    public void confirmConnection(String ip){}
 
     /**
      * cancel a connection if we attempt to do one
@@ -46,4 +54,10 @@ public abstract class StateController {
      * @return the name of the user
      */
     public String getName() {return null;}
+
+    /**
+     * get the multicast
+     * @return the multicast (if no multicast, return null)
+     */
+    public ManageMulticast getMulticast(){return null;}
 }

@@ -42,11 +42,12 @@ public class ReceiverThread extends Thread {
                 controller.getState().disconnection();
             }else if(line.compareTo(Config.connectionOk) == 0){
                 System.out.println("connection ok !");
-                controller.getState().confirmConnection();
+                line = con.getMessage();// second line = ip
+                controller.getState().confirmConnection(line);
             }
 
-            while(con.isConnected() && controller.getState() instanceof ConnectedState){
-                line = con.getMessage();
+            while(controller.getState() instanceof ConnectedState){
+                line = controller.getState().getMulticast().receive();
                 this.addMessage(Message.getMessageFromFormatted(line));
                 System.out.println("Receive : " + line);
             }

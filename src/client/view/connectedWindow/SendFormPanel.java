@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * panel which handle the send form
@@ -34,7 +35,11 @@ public class SendFormPanel extends JPanel {
                 }
                 else if(sendField.getText().compareTo("") != 0){
                     System.out.println("send (ihm) : " + sendField.getText());
-                    controller.getConnection().sendMessage(sendField.getText());
+                    try {
+                        controller.getState().getMulticast().send(sendField.getText());
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
         });
@@ -43,8 +48,6 @@ public class SendFormPanel extends JPanel {
         Dimension jtextFieldDimension = new Dimension(Config.minimumSize.width - this.sendButton.getPreferredSize().width - 30,
                 20);
         this.sendField.setPreferredSize(jtextFieldDimension);
-
-
 
         this.add(this.sendField);
         this.add(this.sendButton);

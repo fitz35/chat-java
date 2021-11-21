@@ -11,7 +11,6 @@ import java.net.Socket;
  */
 public class ManageConnection {
     private Socket echoSocket = null;
-    PrintStream socOut = null;
     BufferedReader socIn = null;
 
     public ManageConnection(){
@@ -28,17 +27,6 @@ public class ManageConnection {
             return socIn.readLine();
         }else{
             return null;
-        }
-    }
-
-    /**
-     * send a message to the server if connected
-     * @param message the message
-     */
-    public void sendMessage(String message){
-        if(this.isConnected()){
-            socOut.println(message);
-            System.out.println("\"" + message + "\" sent !");
         }
     }
 
@@ -68,22 +56,17 @@ public class ManageConnection {
         try {
             this.echoSocket = new Socket(host, port);
             this.socIn = new BufferedReader(new InputStreamReader(this.echoSocket.getInputStream()));
-            this.socOut= new PrintStream(this.echoSocket.getOutputStream());
 
-            // test the credentials :TODO : test this method
-            socOut.println(name + "/" + room);
             if(this.echoSocket.isConnected()){
                 return true;
             }else{
                 this.echoSocket = null;
                 this.socIn = null;
-                this.socOut = null;
                 return false;
             }
         } catch (IOException e) {
             this.echoSocket = null;
             this.socIn = null;
-            this.socOut = null;
             return false;
         }
     }
@@ -95,20 +78,16 @@ public class ManageConnection {
         if(this.isConnected()){
             try {
                 this.echoSocket.close();
-                this.socOut.close();
                 this.socIn.close();
                 this.socIn = null;
-                this.socOut = null;
                 this.echoSocket = null;
             } catch (IOException e) {
                 this.socIn = null;
-                this.socOut = null;
                 this.echoSocket = null;
                 e.printStackTrace();
             }
         }else{
             this.socIn = null;
-            this.socOut = null;
             this.echoSocket = null;
         }
     }
