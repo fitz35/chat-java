@@ -62,18 +62,19 @@ public class ServerThread extends Thread
                     String formattedMessage=m.getFormattedMessage();
                     socOut.println(formattedMessage);
                 }
-                socOut.close();
-                socIn.close();
-
-                byte[] buf = new byte[100000];
-                DatagramPacket recv = new DatagramPacket(buf, buf.length);
-                room.getMulticastSocket().receive(recv);
+                line= socIn.readLine();
+                while(line. compareTo("exit")!=0)
+                {
 
                     Date date = new Date();
                     Message message= new Message(line, client.getName(),date);
                     String formattedMessage= message.getFormattedMessage();
+                    DatagramPacket dataToSend = new DatagramPacket(line.getBytes(), line.length(), room.getGroup(), Config.multiCastPort);
+                    room.getMulticastSocket().send(dataToSend);
                     room.writeInFile(formattedMessage);
-                    room.getListeMessages().add(new Message(line, client.getName(),date ));
+                    room.getListeMessages().add(message);
+                    line=socIn.readLine();
+                }
 
             }
             socIn.close();

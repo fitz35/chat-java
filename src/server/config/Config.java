@@ -36,4 +36,6 @@ public class Config {
      * path to the files of data
      */
     public final static String dataPath = "./data/";
+
+    public final static int multiCastPort= 86;
 }
