@@ -5,6 +5,8 @@ import server.config.Config;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,8 +33,9 @@ public class ServerThread extends Thread
     public void run()
     {
         try {
-            BufferedReader socIn = null;
             PrintStream socOut = null;
+           BufferedReader socIn = null;
+
             socIn = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
             socOut= new PrintStream(clientSocket.getOutputStream());
@@ -52,29 +55,31 @@ public class ServerThread extends Thread
                 room.addClient(client);
                 System.out.println("Connexion from: " + clientSocket.getInetAddress()+ " called "+details[0]);
                 socOut.println(Config.connectionOk);
+                socOut.println(room.getAddrIp());
                 ArrayList<Message> listeMessage= room.getListeMessages();
                 for(Message m: listeMessage)
                 {
                     String formattedMessage=m.getFormattedMessage();
                     socOut.println(formattedMessage);
                 }
+                socOut.close();
+                socIn.close();
 
-                line= socIn.readLine();
-                while(line. compareTo("exit")!=0)
-                {
+                byte[] buf = new byte[100000];
+                DatagramPacket recv = new DatagramPacket(buf, buf.length);
+                room.getMulticastSocket().receive(recv);
 
                     Date date = new Date();
                     Message message= new Message(line, client.getName(),date);
                     String formattedMessage= message.getFormattedMessage();
-                    room.sendMessageToRoom(formattedMessage);
                     room.writeInFile(formattedMessage);
                     room.getListeMessages().add(new Message(line, client.getName(),date ));
-                    line=socIn.readLine();
-                }
+
             }
             socIn.close();
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.err.println("Error in EchoServer:" + e);
         }
         room.getListeClients().remove(client);

@@ -5,6 +5,8 @@ import server.config.Config;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,19 +15,48 @@ public class Room
     private ArrayList<ClientBack> listeClients;
     private ArrayList< Message> listeMessages;
     private String name;
+    private String addrIp;
+    private MulticastSocket multicastSocket;
+    private InetAddress group;
 
-    public Room(String name)
+    public Room(String name,String addrIp,MulticastSocket multicastSocket, InetAddress group)
     {
         this.listeClients= new ArrayList<>();
         this.listeMessages=new ArrayList<>();
         this.name=name;
+        this.addrIp=addrIp;
+        this.multicastSocket=multicastSocket;
+        this.group=group;
+
+    }
+
+    public void joinRoom()
+    {
+        try
+        {
+            multicastSocket.joinGroup(group);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getAddrIp() {
+        return addrIp;
+    }
+
+    public InetAddress getGroup() {
+        return group;
     }
 
     public ArrayList<Message> getListeMessages() {
         return listeMessages;
     }
 
-    public void sendMessageToRoom(String formattedMessage)
+    public MulticastSocket getMulticastSocket() {
+        return multicastSocket;
+    }
+
+    /*public void sendMessageToRoom(String formattedMessage)
     {
         try
         {
@@ -40,7 +71,7 @@ public class Room
             System.err.println("Error in Sending message to room:" + e);
         }
 
-    }
+    }*/
 
 
     public void writeInFile(String formattedMessage)
