@@ -18,7 +18,7 @@ import java.util.Locale;
 public class Server {
     private static ArrayList<Room> listRooms;
     private static ServerSocket listenSocket;
-    private static int ipCounter=0;
+    private static int ipCounter=1;
     private  static InetAddress addr;
 
 
@@ -35,7 +35,7 @@ public class Server {
             }
 
             //We can have only 255 rooms
-            String addressIp = "255.255.255." +ipCounter;
+            String addressIp = "224.0.0." +ipCounter;
             ipCounter++;
             MulticastSocket multicastSocket=null;
             try
