@@ -50,7 +50,7 @@ public class ManageConnection {
      */
     public boolean isConnected(){
         if(this.echoSocket != null){
-            return this.echoSocket.isConnected();
+            return this.echoSocket.isConnected() && !this.echoSocket.isClosed();
         }else{
             return false;
         }

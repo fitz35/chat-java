@@ -32,7 +32,7 @@ public class ManageMulticast {
      */
     public void disconnect() throws IOException {
         this.socket.leaveGroup(this.group);
-        this.socket.disconnect();
+        this.socket.close();
     }
 
     /**

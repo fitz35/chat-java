@@ -36,27 +36,30 @@ public class ReceiverThread extends Thread {
     @Override
     public void run() {
         try {
-            String line = con.getMessage();// first line = if the connection is ok
+            String line = this.con.getMessage();// first line = if the connection is ok
             if(line.compareTo(Config.clientAlreadyExist) == 0){
                 System.out.println("client already exist !");
-                controller.getState().disconnection();
+                this.controller.getState().disconnection();
             }else if(line.compareTo(Config.connectionOk) == 0){
                 System.out.println("connection ok !");
-                line = con.getMessage();// second line = ip
+                line = this.con.getMessage();// second line = ip
                 System.out.println("ip of the room : " + line);
-                controller.getState().confirmConnection(line);
+                this.controller.getState().confirmConnection(line);
             }
-            if(controller.getState() instanceof ConnectedState){
+            if(this.controller.getState() instanceof ConnectedState){
 
-                line = con.getMessage();
+                line = this.con.getMessage();
                 while(line.compareTo(Config.finishToSendOldMessage) != 0){// old message
                     System.out.println("Receive old message : " + line);
                     this.addMessage(Message.getMessageFromFormatted(line));
-                    line = con.getMessage();
+                    line = this.con.getMessage();
                 }
 
-                while(controller.getState() instanceof ConnectedState){ // new one
-                    line = controller.getState().getMulticast().receive();
+                HeartBeatThread checkConnection = new HeartBeatThread(this.con, this.controller);
+                checkConnection.start();
+
+                while(this.controller.getState() instanceof ConnectedState){ // new one
+                    line = this.controller.getState().getMulticast().receive();
                     System.out.println("Receive : " + line);
                     this.addMessage(Message.getMessageFromFormatted(line));
                 }
@@ -64,7 +67,7 @@ public class ReceiverThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        controller.getState().disconnection();// error occurred
+        this.controller.getState().disconnection();// error occurred
     }
 
     ////////////////////////////////////
