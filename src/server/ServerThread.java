@@ -70,8 +70,7 @@ public class ServerThread extends Thread
                     Date date = new Date();
                     Message message= new Message(line, client.getName(),date);
                     String formattedMessage= message.getFormattedMessage();
-                    DatagramPacket dataToSend = new DatagramPacket(formattedMessage.getBytes(), formattedMessage.length(), room.getGroup(), Config.multiCastPort);
-                    room.getMulticastSocket().send(dataToSend);
+                    room.sendMessageToRoom(formattedMessage);
                     room.writeInFile(formattedMessage);
                     room.getListeMessages().add(message);
                     line=socIn.readLine();

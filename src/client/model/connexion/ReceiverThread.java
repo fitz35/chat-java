@@ -55,11 +55,8 @@ public class ReceiverThread extends Thread {
                     line = this.con.getMessage();
                 }
 
-                HeartBeatThread checkConnection = new HeartBeatThread(this.con, this.controller);
-                checkConnection.start();
-
                 while(this.controller.getState() instanceof ConnectedState){ // new one
-                    line = this.controller.getState().getMulticast().receive();
+                    line = this.con.getMessage();
                     System.out.println("Receive : " + line);
                     this.addMessage(Message.getMessageFromFormatted(line));
                 }

@@ -10,27 +10,12 @@ import java.io.IOException;
 public class ConnectedState extends StateController{
     private final String name;
     private final String room;
-    private final ManageMulticast multicast;
 
-    public ConnectedState(String name, String room, ManageMulticast multicast, Controller controller){
+    public ConnectedState(String name, String room, Controller controller){
         super(controller);
         this.name = name;
         this.room = room;
-        this.multicast = multicast;
     }
-
-    @Override
-    public void disconnection(){
-        try {
-            this.multicast.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        super.disconnection();
-    }
-
-    @Override
-    public ManageMulticast getMulticast(){return this.multicast;}
 
     @Override
     public String getRoom() {

@@ -56,7 +56,7 @@ public class Room
         return multicastSocket;
     }
 
-    /*public void sendMessageToRoom(String formattedMessage)
+    public void sendMessageToRoom(String formattedMessage)
     {
         try
         {
@@ -71,7 +71,7 @@ public class Room
             System.err.println("Error in Sending message to room:" + e);
         }
 
-    }*/
+    }
 
 
     public void writeInFile(String formattedMessage)
