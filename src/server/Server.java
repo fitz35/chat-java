@@ -21,7 +21,11 @@ public class Server {
     private static int ipCounter=1;
     private  static InetAddress addr;
 
-
+    /**
+     * get the room with the name. if it doesn't already exist, create one
+     * @param roomName the room name
+     * @return the room
+     */
     public static Room IdentifyRoom(String roomName)
     {
         try
