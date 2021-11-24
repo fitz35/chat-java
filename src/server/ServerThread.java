@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+/**
+ * thread launch for every new client
+ */
 public class ServerThread extends Thread
 {
 
@@ -29,7 +31,7 @@ public class ServerThread extends Thread
     }
 
 
-
+    @Override
     public void run()
     {
         try {

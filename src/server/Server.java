@@ -21,7 +21,11 @@ public class Server {
     private static int ipCounter=1;
     private  static InetAddress addr;
 
-
+    /**
+     * get the room with the name. if it doesn't already exist, create one
+     * @param roomName the room name
+     * @return the room
+     */
     public static Room IdentifyRoom(String roomName)
     {
         try
@@ -94,9 +98,9 @@ public class Server {
             e.printStackTrace();
             return null;
         }
-
-
     }
+
+
     public static void main (String[] args)
     {
 
@@ -118,8 +122,4 @@ public class Server {
             System.err.println("Error in EchoServer:" + e);
         }
     }
-
-
-
-
 }

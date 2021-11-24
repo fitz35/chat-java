@@ -10,6 +10,9 @@ import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * room data
+ */
 public class Room
 {
     private ArrayList<ClientBack> listeClients;
@@ -30,6 +33,9 @@ public class Room
 
     }
 
+    /**
+     * make the room join the group (listen message)
+     */
     public void joinRoom()
     {
         try
@@ -40,22 +46,42 @@ public class Room
         }
     }
 
+    /**
+     * get the address ip
+     * @return the address ip
+     */
     public String getAddrIp() {
         return addrIp;
     }
 
+    /**
+     * get the group
+     * @return the group
+     */
     public InetAddress getGroup() {
         return group;
     }
 
+    /**
+     * get the list of the message
+     * @return the list of the message
+     */
     public ArrayList<Message> getListeMessages() {
         return listeMessages;
     }
 
+    /**
+     * get the multicast socket
+     * @return the multicast socket
+     */
     public MulticastSocket getMulticastSocket() {
         return multicastSocket;
     }
 
+    /**
+     * send a message to the room
+     * @param formattedMessage the formatted message to be send
+     */
     public void sendMessageToRoom(String formattedMessage)
     {
         try
@@ -73,7 +99,10 @@ public class Room
 
     }
 
-
+    /**
+     * write a message in a file
+     * @param formattedMessage the formatted message to write
+     */
     public void writeInFile(String formattedMessage)
     {
         try {
@@ -89,15 +118,27 @@ public class Room
         }
     }
 
-
+    /**
+     * get the name of the room
+     * @return the name of the room
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * get the list of connected client
+     * @return the list of connected client
+     */
     public ArrayList<ClientBack> getListeClients() {
         return listeClients;
     }
 
+    /**
+     * test if a client isn't connected
+     * @param inputDetails the name of the client
+     * @return true if the client isn't connected
+     */
     public boolean identifyClient(String inputDetails)
     {
 
